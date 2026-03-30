@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, ArrowRight } from 'lucide-react'
+import { Menu, X, ArrowRight, Car } from 'lucide-react'
 import { useActiveSection } from '@/hooks/useActiveSection'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 
@@ -37,20 +37,18 @@ export function Navbar() {
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-bg-void/85 backdrop-blur-xl border-b border-border'
-            : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? 'bg-bg-void/85 backdrop-blur-xl border-b border-border'
+          : 'bg-transparent'
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <div className="section-padding">
           <div
-            className={`flex items-center justify-between transition-all duration-300 ${
-              isScrolled ? 'h-16' : 'h-20'
-            }`}
+            className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-16' : 'h-20'
+              }`}
           >
             {/* Logo */}
             <a
@@ -71,11 +69,10 @@ export function Navbar() {
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className={`relative text-sm font-body transition-colors duration-300 ${
-                    activeSection === link.id
-                      ? 'text-text-high'
-                      : 'text-text-mid hover:text-text-high'
-                  }`}
+                  className={`relative text-sm font-body transition-colors duration-300 ${activeSection === link.id
+                    ? 'text-text-high'
+                    : 'text-text-mid hover:text-text-high'
+                    }`}
                 >
                   {link.label}
                   {activeSection === link.id && (
@@ -93,6 +90,14 @@ export function Navbar() {
             <div className="hidden md:flex items-center gap-6">
               <ThemeToggle />
               <button
+                onClick={() => window.dispatchEvent(new Event('toggle-game-mode'))}
+                className="p-2 text-text-low hover:text-accent-1 transition-colors group"
+                aria-label="Enter Drive Mode"
+                title="Enter Drive Mode"
+              >
+                <Car className="w-5 h-5 transition-transform group-hover:scale-110" />
+              </button>
+              <button
                 onClick={() => scrollToSection('contact')}
                 className="btn-outline text-sm flex items-center gap-2 group"
               >
@@ -101,14 +106,17 @@ export function Navbar() {
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden p-2 text-text-high"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            {/* Mobile Actions & Menu Toggle */}
+            <div className="md:hidden flex items-center gap-4">
+              <ThemeToggle />
+              <button
+                className="p-2 text-text-high"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -144,9 +152,8 @@ export function Navbar() {
                   <motion.button
                     key={link.id}
                     onClick={() => scrollToSection(link.id)}
-                    className={`block w-full text-left py-3 text-lg font-body ${
-                      activeSection === link.id ? 'text-accent-1' : 'text-text-high'
-                    }`}
+                    className={`block w-full text-left py-3 text-lg font-body ${activeSection === link.id ? 'text-accent-1' : 'text-text-high'
+                      }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.06 }}
@@ -163,6 +170,19 @@ export function Navbar() {
                 >
                   Hire Me
                   <ArrowRight className="w-4 h-4" />
+                </motion.button>
+                <motion.button
+                  onClick={() => {
+                    window.dispatchEvent(new Event('toggle-game-mode'));
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full btn-outline mt-2 flex items-center justify-center gap-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navLinks.length * 0.06 + 0.05 }}
+                >
+                  <Car className="w-4 h-4" />
+                  Drive Mode
                 </motion.button>
               </div>
             </motion.div>

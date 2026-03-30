@@ -9,6 +9,14 @@ export function Hero() {
   const [displayText, setDisplayText] = useState('')
   const [isTyping, setIsTyping] = useState(true)
 
+  const [isGameActive, setIsGameActive] = useState(false)
+
+  useEffect(() => {
+    const handleGameMode = () => setIsGameActive(prev => !prev)
+    window.addEventListener('toggle-game-mode', handleGameMode)
+    return () => window.removeEventListener('toggle-game-mode', handleGameMode)
+  }, [])
+
   useEffect(() => {
     const currentTitle = titles[currentTitleIndex]
 
@@ -107,20 +115,22 @@ export function Hero() {
       className="relative min-h-screen flex items-center section-padding pt-20 overflow-hidden bg-bg-void transition-colors duration-500"
     >
       {/* Global Animated Rocket attached to viewport */}
-      <motion.img
-        src="/projects/rocket.png"
-        alt="Rocket"
-        className="fixed z-50 w-20 object-contain pointer-events-none drop-shadow-[0_0_15px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0_15px_rgba(0,212,255,0.4)]"
-        style={{
-          x: rocketX,
-          y: rocketY,
-          rotate: rocketRotate,
-          scale: rocketScale,
-          opacity: rocketOpacity,
-          top: 0,
-          left: 0
-        }}
-      />
+      {!isGameActive && (
+        <motion.img
+          src="/projects/rocket.png"
+          alt="Rocket"
+          className="fixed z-50 w-20 object-contain pointer-events-none drop-shadow-[0_0_15px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0_15px_rgba(0,212,255,0.4)]"
+          style={{
+            x: rocketX,
+            y: rocketY,
+            rotate: rocketRotate,
+            scale: rocketScale,
+            opacity: rocketOpacity,
+            top: 0,
+            left: 0
+          }}
+        />
+      )}
 
       {/* Background Video - Merging Area (Pushed Right) */}
       <div className="absolute -right-16 top-1/2 -translate-y-1/2 w-[40%] h-[70%] z-0 pointer-events-none hidden lg:flex items-center justify-end">
@@ -238,15 +248,17 @@ export function Hero() {
                     }
                   }}
                 >
-                  <img
-                    src="/projects/rocket-boy.png"
-                    alt="Syed Faizan Uddin"
-                    className="w-[140%] h-[140%] max-w-none object-contain absolute -top-[20%] -left-[20%] drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)] pointer-events-none"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = "https://ui-avatars.com/api/?name=Faizan&background=00d4ff&color=fff&size=200";
-                    }}
-                  />
+                  {!isGameActive && (
+                    <img
+                      src="/projects/rocket-boy.png"
+                      alt="Syed Faizan Uddin"
+                      className="w-[140%] h-[140%] max-w-none object-contain absolute -top-[20%] -left-[20%] drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)] pointer-events-none"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = "https://ui-avatars.com/api/?name=Faizan&background=00d4ff&color=fff&size=200";
+                      }}
+                    />
+                  )}
                 </motion.div>
               </div>
             </motion.div>
@@ -308,7 +320,7 @@ export function Hero() {
               <div className="h-px w-12 bg-border/50" />
               <div className="flex items-center gap-4">
                 {[
-                  { icon: <Linkedin className="w-5 h-5" />, label: 'LinkedIn', href: 'https://linkedin.com' },
+                  { icon: <Linkedin className="w-5 h-5" />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/syed-faizan-uddin-563187225/' },
                   { icon: <Github className="w-5 h-5" />, label: 'GitHub', href: 'https://github.com/faizansyed14' },
                   { icon: <Mail className="w-5 h-5" />, label: 'Email', href: 'mailto:syedfaizanuddin.dxb@gmail.com' }
                 ].map((social, i) => (

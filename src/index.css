@@ -266,3 +266,24 @@ body {
 .font-mono {
   font-family: var(--font-jetbrains);
 }
+
+/* Car Game Animations */
+@keyframes car-impact {
+  0% { transform: scale(1); }
+  25% { transform: scale(0.98) rotate(1deg); }
+  50% { transform: scale(1.02) rotate(-1deg); }
+  75% { transform: scale(0.99) rotate(0.5deg); }
+  100% { transform: scale(1); }
+}
+
+.car-impact {
+  animation: car-impact 0.4s ease-out;
+  border-color: var(--accent-1) !important;
+  box-shadow: 0 0 30px var(--accent-glow) !important;
+  z-index: 50;
+}
+
+.car-active-element {
+  position: relative;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}

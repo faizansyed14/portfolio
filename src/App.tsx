@@ -13,6 +13,7 @@ import { Skills } from '@/sections/Skills'
 import { Achievements } from '@/sections/Achievements'
 import { GlobalSpotlight } from '@/components/ui/GlobalSpotlight'
 import { Contact } from '@/sections/Contact'
+import { CarGame } from '@/components/game/CarGame'
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
 
       {/* Navigation */}
       <Navbar />
+
+      {/* Game Mode Overlay */}
+      <CarGame />
 
       {/* Main Content */}
       <div className="relative z-10">

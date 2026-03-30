@@ -9,7 +9,7 @@ export function Contact() {
   const [copied, setCopied] = useState(false)
 
   const copyEmail = () => {
-    navigator.clipboard.writeText('hello@syedfaizan.dev')
+    navigator.clipboard.writeText('syedfaizanuddin.dxb@gmail.com')
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -45,10 +45,10 @@ export function Contact() {
             {/* Email with copy button */}
             <div className="flex items-center justify-center gap-3 mb-8">
               <a
-                href="mailto:hello@syedfaizan.dev"
+                href="mailto:syedfaizanuddin.dxb@gmail.com"
                 className="text-accent-1 font-mono text-lg hover:underline"
               >
-                hello@syedfaizan.dev
+                syedfaizanuddin.dxb@gmail.com
               </a>
               <button
                 onClick={copyEmail}
@@ -66,7 +66,7 @@ export function Contact() {
             {/* Social Links */}
             <div className="flex flex-wrap items-center justify-center gap-4">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/syed-faizan-uddin-563187225/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 text-text-high bg-bg-elevated border border-border rounded-lg hover:border-accent-1/50 transition-colors"
@@ -76,7 +76,7 @@ export function Contact() {
                 <ArrowUpRight className="w-4 h-4" />
               </a>
               <a
-                href="https://github.com"
+                href="https://github.com/faizansyed14"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 text-text-high bg-bg-elevated border border-border rounded-lg hover:border-accent-1/50 transition-colors"
@@ -86,7 +86,7 @@ export function Contact() {
                 <ArrowUpRight className="w-4 h-4" />
               </a>
               <a
-                href="mailto:hello@syedfaizan.dev"
+                href="mailto:syedfaizanuddin.dxb@gmail.com"
                 className="inline-flex items-center gap-2 px-4 py-2 text-text-high bg-bg-elevated border border-border rounded-lg hover:border-accent-1/50 transition-colors"
               >
                 <Mail className="w-5 h-5" />

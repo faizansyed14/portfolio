@@ -22,7 +22,7 @@ export function Footer() {
           {/* Center - Social Links */}
           <div className="flex items-center gap-4">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/syed-faizan-uddin-563187225/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-text-low hover:text-accent-1 transition-colors"
