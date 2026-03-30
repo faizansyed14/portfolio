@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 210 40% 98%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 214.3 32% 91%;
+  --muted-foreground: 215.4 16.3% 40%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 85%;
+  --input: 214.3 31.8% 85%;
+  --ring: 222.2 84% 4.9%;
+  --radius: 0.5rem;
+
+  --bg-void: #ffffff;
+  --bg-primary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --accent-1: #0369a1;
+  --accent-2: #4338ca;
+  --accent-glow: rgba(3, 105, 161, 0.1);
+  --text-high: #0f172a;
+  --text-mid: #334155;
+  --text-low: #64748b;
+  --border-1: rgba(0, 0, 0, 0.08);
+  --border-glow: rgba(3, 105, 161, 0.15);
+
+  --font-syne: 'Syne', sans-serif;
+  --font-dm-sans: 'DM Sans', sans-serif;
+  --font-jetbrains: 'JetBrains Mono', monospace;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+
+  --bg-void: #04040a;
+  --bg-primary: #080810;
+  --bg-card: #0c0c18;
+  --bg-elevated: #111126;
+  --accent-1: #00d4ff;
+  --accent-2: #6366f1;
+  --accent-glow: rgba(0, 212, 255, 0.18);
+  --text-high: #f1f5f9;
+  --text-mid: #94a3b8;
+  --text-low: #475569;
+  --border-1: rgba(255, 255, 255, 0.06);
+  --border-glow: rgba(0, 212, 255, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-void);
+  color: var(--text-high);
+  font-family: var(--font-dm-sans), sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-low);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-mid);
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: var(--text-high);
+}
+
+/* Noise texture overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Grid overlay */
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Glass card effect */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-1);
+}
+
+.dark .glass-card {
+  background: rgba(12, 12, 24, 0.6);
+}
+
+.glass-card:hover {
+  border-color: var(--border-glow);
+}
+
+/* Glow effects */
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hide cursor on desktop when custom cursor is active */
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor-active {
+    cursor: none !important;
+  }
+
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-1);
+  outline-offset: 2px;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+/* Button base styles */
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-accent-1 text-white dark:text-bg-void font-medium rounded-lg transition-all duration-300;
+  }
+
+  .btn-primary:hover {
+    @apply bg-opacity-90;
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 border border-border text-text-high font-medium rounded-lg transition-all duration-300;
+  }
+
+  .btn-outline:hover {
+    @apply bg-bg-card border-accent-1 shadow-[0_0_15px_var(--accent-glow)];
+  }
+
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 xl:px-16 2xl:px-24;
+  }
+}
+
+/* Typography utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Font families */
+.font-display {
+  font-family: var(--font-syne);
+}
+
+.font-heading {
+  font-family: var(--font-syne);
+}
+
+.font-body {
+  font-family: var(--font-dm-sans);
+}
+
+.font-mono {
+  font-family: var(--font-jetbrains);
+}
