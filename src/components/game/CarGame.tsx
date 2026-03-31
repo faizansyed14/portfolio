@@ -17,7 +17,7 @@ export function CarGame() {
   const [isWarping, setIsWarping] = useState(false)
   const [isFlashActive, setIsFlashActive] = useState(false)
   const carRef = useRef<HTMLDivElement>(null)
-  
+
   // Physics state
   const state = useRef({
     x: window.innerWidth / 2,
@@ -81,7 +81,7 @@ export function CarGame() {
       setTimeout(() => {
         setIsWarping(false)
         setIsFlashActive(false)
-      }, 100) 
+      }, 100)
     }
   }
 
@@ -91,11 +91,11 @@ export function CarGame() {
 
     if (!isActive) return
 
-    const handleKeyDown = (e: KeyboardEvent) => { 
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright', 'shift'].includes(e.key.toLowerCase())) {
         e.preventDefault()
       }
-      keys.current[e.key.toLowerCase()] = true 
+      keys.current[e.key.toLowerCase()] = true
     }
     const handleKeyUp = (e: KeyboardEvent) => { keys.current[e.key.toLowerCase()] = false }
 
@@ -142,7 +142,7 @@ export function CarGame() {
       // 4. World Wrapping / Bounds
       if (s.x < -40) s.x = window.innerWidth + 20
       if (s.x > window.innerWidth + 40) s.x = -20
-      
+
       const docHeight = document.documentElement.scrollHeight
       const currentH = window.innerHeight
       if (s.y < 50) s.y = 50
@@ -152,13 +152,13 @@ export function CarGame() {
       const screenY = s.y - window.scrollY
       const topThreshold = currentH * DEADZONE_H
       const bottomThreshold = currentH * (1 - DEADZONE_H)
-      
+
       if (screenY < topThreshold && window.scrollY > 0) {
-          const gap = topThreshold - screenY
-          window.scrollBy(0, -gap * 0.12 - Math.abs(s.vy))
+        const gap = topThreshold - screenY
+        window.scrollBy(0, -gap * 0.12 - Math.abs(s.vy))
       } else if (screenY > bottomThreshold && window.scrollY < docHeight - currentH) {
-          const gap = screenY - bottomThreshold
-          window.scrollBy(0, gap * 0.12 + Math.abs(s.vy))
+        const gap = screenY - bottomThreshold
+        window.scrollBy(0, gap * 0.12 + Math.abs(s.vy))
       }
 
       // 6. 🌀 Teleport Tunnel Collision
@@ -170,7 +170,7 @@ export function CarGame() {
         carScreenX > tunnelRect.x && carScreenX < tunnelRect.x + tunnelRect.width &&
         carScreenY > tunnelRect.y && carScreenY < tunnelRect.y + tunnelRect.height
       ) {
-         if (!isWarping) setIsWarping(true)
+        if (!isWarping) setIsWarping(true)
       }
 
       // 7. Render Car 2D
@@ -199,103 +199,105 @@ export function CarGame() {
 
   return (
     <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden select-none">
-      
+
       {/* 🌀 TELEPORT TUNNEL */}
       <div className="absolute right-12 top-1/2 -translate-y-48 w-32 h-32 flex items-center justify-center pointer-events-none z-[115]">
         <div className="relative w-full h-full">
-           <motion.div
-             animate={{ borderColor: ['var(--accent-1)', 'rgba(255,255,255,0.8)', 'var(--accent-1)'], boxShadow: ['0 0 30px var(--accent-glow)', '0 0 60px var(--accent-glow)', '0 0 30px var(--accent-glow)'] }}
-             transition={{ duration: 2, repeat: Infinity }}
-             className="absolute inset-0 border-4 border-b-0 rounded-t-full opacity-60"
-           />
-           <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
-              <Magnet className="w-10 h-10 text-accent-1 animate-bounce" />
-              <div className="text-[10px] font-mono font-bold text-accent-1 whitespace-nowrap bg-bg-void/80 px-3 py-1.5 rounded-full border border-accent-1/20 shadow-lg">
-                 TELEPORT TUNNEL
-              </div>
-           </div>
+          <motion.div
+            animate={{ borderColor: ['var(--accent-1)', 'rgba(255,255,255,0.8)', 'var(--accent-1)'], boxShadow: ['0 0 30px var(--accent-glow)', '0 0 60px var(--accent-glow)', '0 0 30px var(--accent-glow)'] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="absolute inset-0 border-4 border-b-0 rounded-t-full opacity-60"
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
+            <Magnet className="w-10 h-10 text-accent-1 animate-bounce" />
+            <div className="text-[10px] font-mono font-bold text-accent-1 whitespace-nowrap bg-bg-void/80 px-3 py-1.5 rounded-full border border-accent-1/20 shadow-lg">
+              TELEPORT TUNNEL
+            </div>
+          </div>
         </div>
       </div>
 
       {/* 🏎️ CAR SPRITE */}
-      <div ref={carRef} className="absolute w-12 h-16 -ml-6 -mt-8 flex items-center justify-center pointer-events-none z-[111]" style={{ transform: 'translate(-100px, -100px)' }}>
+      <div ref={carRef} className="absolute w-24 h-32 -ml-12 -mt-16 flex items-center justify-center pointer-events-none z-[111]" style={{ transform: 'translate(-100px, -100px)' }}>
         <div className="relative w-full h-full">
-           <div className="absolute inset-x-2 bottom-1 h-3 bg-black/40 blur-md rounded-full" />
-           <motion.div 
-             className={`${state.current.isNitro ? 'bg-white shadow-[0_0_30px_#fff]' : 'bg-accent-1'} w-full h-full rounded-lg border-2 border-white/20 shadow-lg relative overflow-hidden transition-colors duration-300`}
-             animate={{ scale: state.current.isNitro ? [1, 1.15, 1] : [1, 1.02, 1] }}
-             transition={{ duration: 0.15, repeat: Infinity }}
-           >
-              <div className="absolute top-2 inset-x-2 h-4 bg-bg-void/40 rounded-sm" />
-              <div className="absolute top-0 left-1 w-2 h-1 bg-yellow-200 blur-[2px]" />
-              <div className="absolute top-0 right-1 w-2 h-1 bg-yellow-200 blur-[2px]" />
-           </motion.div>
-           {state.current.isNitro && (
-             <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-                {[...Array(3)].map((_, i) => (
-                  <motion.div key={i} className="w-2 h-10 bg-gradient-to-t from-transparent via-cyan-400 to-white rounded-full blur-sm" animate={{ y: [0, 15], opacity: [0.8, 0] }} transition={{ duration: 0.1, repeat: Infinity, delay: i * 0.03 }} />
-                ))}
-             </div>
-           )}
+          <div className="absolute inset-x-4 bottom-2 h-6 bg-black/40 blur-xl rounded-full" />
+          <motion.img
+            src="/projects/car.png"
+            alt="Car"
+            className="w-full h-full object-contain drop-shadow-2xl"
+            animate={{ scale: state.current.isNitro ? [1, 1.1, 1] : [1, 1.02, 1] }}
+            transition={{ duration: 0.15, repeat: Infinity }}
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+            }}
+          />
+          {state.current.isNitro && (
+            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 flex gap-3">
+              {[...Array(4)].map((_, i) => (
+                <motion.div key={i} className="w-3 h-16 bg-gradient-to-t from-transparent via-cyan-400 to-white rounded-full blur-md" animate={{ y: [0, 25], opacity: [0.8, 0], scale: [1, 1.5] }} transition={{ duration: 0.12, repeat: Infinity, delay: i * 0.03 }} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
       {/* 🚀 NITRO LINES */}
       {state.current.isNitro && state.current.speed > 10 && (
-         <div className="absolute inset-0 overflow-hidden opacity-30">
-            {[...Array(25)].map((_, i) => (
-               <motion.div key={i} initial={{ opacity: 0, y: -200 }} animate={{ opacity: [0, 0.6, 0], y: window.innerHeight + 200 }} transition={{ duration: 0.3, repeat: Infinity, delay: Math.random() * 0.3 }} className="absolute w-px h-64 bg-accent-1" style={{ left: `${Math.random() * 100}%` }} />
-            ))}
-         </div>
+        <div className="absolute inset-0 overflow-hidden opacity-30">
+          {[...Array(25)].map((_, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: -200 }} animate={{ opacity: [0, 0.6, 0], y: window.innerHeight + 200 }} transition={{ duration: 0.3, repeat: Infinity, delay: Math.random() * 0.3 }} className="absolute w-px h-64 bg-accent-1" style={{ left: `${Math.random() * 100}%` }} />
+          ))}
+        </div>
       )}
 
       {/* 🕹️ MOBILE ARROW CONTROLS (Small & Minimal) */}
       <div className="absolute inset-x-0 bottom-10 z-[160] px-10 flex items-end justify-between pointer-events-none md:hidden">
-         {/* D-PAD (L/R/U/D Arrows) */}
-         <div className="grid grid-cols-3 gap-2 pointer-events-auto">
-            <div />
-            <MobileButton icon={<ChevronUp />} onPress={(p) => updateKey('w', p)} />
-            <div />
-            <MobileButton icon={<ChevronLeft />} onPress={(p) => updateKey('a', p)} />
-            <MobileButton icon={<ChevronDown />} onPress={(p) => updateKey('s', p)} />
-            <MobileButton icon={<ChevronRightIcon />} onPress={(p) => updateKey('d', p)} />
-         </div>
+        {/* D-PAD (L/R/U/D Arrows) */}
+        <div className="grid grid-cols-3 gap-2 pointer-events-auto">
+          <div />
+          <MobileButton icon={<ChevronUp />} onPress={(p) => updateKey('w', p)} />
+          <div />
+          <MobileButton icon={<ChevronLeft />} onPress={(p) => updateKey('a', p)} />
+          <MobileButton icon={<ChevronDown />} onPress={(p) => updateKey('s', p)} />
+          <MobileButton icon={<ChevronRightIcon />} onPress={(p) => updateKey('d', p)} />
+        </div>
 
-         {/* NITRO ICON */}
-         <button 
-           className={`w-16 h-16 rounded-3xl border-2 border-accent-1/40 flex items-center justify-center pointer-events-auto backdrop-blur-md transition-all ${keys.current['shift'] ? 'bg-accent-1' : 'bg-white/5'}`}
-           onTouchStart={() => updateKey('shift', true)}
-           onTouchEnd={() => updateKey('shift', false)}
-         >
-            <Zap className={`w-8 h-8 ${keys.current['shift'] ? 'text-bg-void' : 'text-accent-1'}`} />
-         </button>
+        {/* NITRO ICON */}
+        <button
+          className={`w-16 h-16 rounded-3xl border-2 border-accent-1/40 flex items-center justify-center pointer-events-auto backdrop-blur-md transition-all ${keys.current['shift'] ? 'bg-accent-1' : 'bg-white/5'}`}
+          onTouchStart={() => updateKey('shift', true)}
+          onTouchEnd={() => updateKey('shift', false)}
+        >
+          <Zap className={`w-8 h-8 ${keys.current['shift'] ? 'text-bg-void' : 'text-accent-1'}`} />
+        </button>
       </div>
 
       {/* 🔮 WARP MENU */}
       <AnimatePresence>
         {isWarping && (
           <motion.div initial={{ opacity: 0, backdropFilter: 'blur(0px)' }} animate={{ opacity: 1, backdropFilter: 'blur(15px)' }} exit={{ opacity: 0, backdropFilter: 'blur(0px)' }} className="absolute inset-0 bg-bg-void/40 pointer-events-auto z-[200] flex items-center justify-center p-4">
-             <motion.div 
-               initial={{ scale: 0.8, y: 50 }} 
-               animate={{ scale: 1, y: 0 }} 
-               className="bg-bg-card border-2 border-accent-1/40 p-8 rounded-[40px] shadow-[0_0_100px_var(--accent-glow)] max-w-xl w-full text-text-high"
-             >
-                <div className="flex items-center justify-between mb-8">
-                   <div className="flex items-center gap-4">
-                      <div className="bg-accent-1 p-3 rounded-2xl shadow-lg shadow-accent-1/20"><Orbit className="w-8 h-8 text-bg-void animate-spin" /></div>
-                      <h3 className="text-3xl font-display font-black tracking-tighter uppercase italic text-text-high">Fast Travel</h3>
-                   </div>
-                   <button onClick={() => setIsWarping(false)} className="p-3 hover:bg-white/5 rounded-2xl transition-colors border border-white/5"><X className="w-6 h-6 text-text-low"/></button>
+            <motion.div
+              initial={{ scale: 0.8, y: 50 }}
+              animate={{ scale: 1, y: 0 }}
+              className="bg-bg-card border-2 border-accent-1/40 p-8 rounded-[40px] shadow-[0_0_100px_var(--accent-glow)] max-w-xl w-full text-text-high"
+            >
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="bg-accent-1 p-3 rounded-2xl shadow-lg shadow-accent-1/20"><Orbit className="w-8 h-8 text-bg-void animate-spin" /></div>
+                  <h3 className="text-3xl font-display font-black tracking-tighter uppercase italic text-text-high">Fast Travel</h3>
                 </div>
-                <div className="grid grid-cols-2 gap-3 overflow-y-auto max-h-[50vh]">
-                   {gameSections.map((sec) => (
-                     <button key={sec.id} onClick={() => warpTo(sec.id)} className="group relative flex items-center justify-between p-5 rounded-2xl border border-white/5 hover:border-accent-1 hover:bg-accent-1/10 transition-all text-left overflow-hidden bg-bg-elevated/50">
-                       <div className="relative z-10 w-full"><span className="text-[10px] font-mono text-accent-1/60 uppercase block mb-1">Sector_{sec.id}</span><span className="text-xl font-display font-bold group-hover:text-accent-1 truncate block text-text-high transition-colors">{sec.label}</span></div>
-                       <ChevronRightIcon className="w-5 h-5 text-accent-1 group-hover:translate-x-1 transition-all" />
-                     </button>
-                   ))}
-                </div>
-             </motion.div>
+                <button onClick={() => setIsWarping(false)} className="p-3 hover:bg-white/5 rounded-2xl transition-colors border border-white/5"><X className="w-6 h-6 text-text-low" /></button>
+              </div>
+              <div className="grid grid-cols-2 gap-3 overflow-y-auto max-h-[50vh]">
+                {gameSections.map((sec) => (
+                  <button key={sec.id} onClick={() => warpTo(sec.id)} className="group relative flex items-center justify-between p-5 rounded-2xl border border-white/5 hover:border-accent-1 hover:bg-accent-1/10 transition-all text-left overflow-hidden bg-bg-elevated/50">
+                    <div className="relative z-10 w-full"><span className="text-[10px] font-mono text-accent-1/60 uppercase block mb-1">Sector_{sec.id}</span><span className="text-xl font-display font-bold group-hover:text-accent-1 truncate block text-text-high transition-colors">{sec.label}</span></div>
+                    <ChevronRightIcon className="w-5 h-5 text-accent-1 group-hover:translate-x-1 transition-all" />
+                  </button>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -303,11 +305,11 @@ export function CarGame() {
       {/* 💥 WARP FLASH */}
       <AnimatePresence>
         {isFlashActive && (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            exit={{ opacity: 0 }} 
-            className="absolute inset-0 bg-white z-[300]" 
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-white z-[300]"
           />
         )}
       </AnimatePresence>
@@ -322,8 +324,8 @@ export function CarGame() {
         </div>
         <div className="h-8 w-px bg-white/10" />
         <div className="flex items-center gap-2">
-           <span className={`font-mono font-black text-white italic ${isTouchDevice ? 'text-xl' : 'text-2xl'}`}>{Math.floor(Math.abs(state.current.speed) * 8)}</span>
-           <span className="text-[10px] uppercase text-accent-1 font-black">km/h</span>
+          <span className={`font-mono font-black text-white italic ${isTouchDevice ? 'text-xl' : 'text-2xl'}`}>{Math.floor(Math.abs(state.current.speed) * 8)}</span>
+          <span className="text-[10px] uppercase text-accent-1 font-black">km/h</span>
         </div>
         <button onClick={() => setIsActive(false)} className="p-2 hover:bg-white/5 rounded-full transition-colors text-white"><X className="w-5 h-5" /></button>
       </div>
@@ -333,7 +335,7 @@ export function CarGame() {
 
 function MobileButton({ icon, onPress }: { icon: React.ReactNode, onPress: (p: boolean) => void }) {
   const [isPressed, setIsPressed] = useState(false)
-  
+
   const handlePress = (pressed: boolean) => {
     setIsPressed(pressed)
     onPress(pressed)

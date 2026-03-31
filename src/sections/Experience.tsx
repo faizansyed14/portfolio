@@ -56,13 +56,13 @@ export function Experience() {
 
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
-        <SectionReveal>
+        <SectionReveal id="experience">
           <span className="text-xs font-mono text-text-low uppercase tracking-widest mb-4 block">
             Career
           </span>
         </SectionReveal>
 
-        <SectionReveal delay={0.1}>
+        <SectionReveal id="experience" delay={0.1}>
           <h2 className="font-heading font-semibold text-3xl md:text-4xl lg:text-5xl text-text-high mb-16">
             Where I&apos;ve <span className="gradient-text">Built</span>
           </h2>

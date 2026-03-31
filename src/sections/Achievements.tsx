@@ -21,13 +21,13 @@ export function Achievements() {
 
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <SectionReveal>
+        <SectionReveal id="achievements">
           <span className="text-xs font-mono text-text-low uppercase tracking-widest mb-4 block">
             Impact
           </span>
         </SectionReveal>
 
-        <SectionReveal delay={0.1}>
+        <SectionReveal id="achievements" delay={0.1}>
           <h2 className="font-heading font-semibold text-3xl md:text-4xl lg:text-5xl text-text-high mb-12">
             Credibility in <span className="gradient-text">Numbers</span>
           </h2>
@@ -39,7 +39,7 @@ export function Achievements() {
             const Icon = iconMap[achievement.icon]
 
             return (
-              <SectionReveal key={achievement.id} delay={0.2 + index * 0.1}>
+              <SectionReveal id="achievements" key={achievement.id} delay={0.2 + index * 0.1}>
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}

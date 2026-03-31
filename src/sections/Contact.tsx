@@ -20,14 +20,14 @@ export function Contact() {
 
       <div className="max-w-3xl mx-auto text-center">
         {/* Section Header */}
-        <SectionReveal>
+        <SectionReveal id="contact">
           <h2 className="font-heading font-semibold text-3xl md:text-4xl lg:text-5xl text-text-high mb-4">
             Let&apos;s Build Something{' '}
             <span className="gradient-text">Real</span>
           </h2>
         </SectionReveal>
 
-        <SectionReveal delay={0.1}>
+        <SectionReveal id="contact" delay={0.1}>
           <p className="text-text-mid text-lg mb-12 max-w-xl mx-auto">
             Open to AI consulting, enterprise product development, and high-impact
             collaborations.
@@ -35,7 +35,7 @@ export function Contact() {
         </SectionReveal>
 
         {/* Main CTA Card */}
-        <SectionReveal delay={0.2}>
+        <SectionReveal id="contact" delay={0.2}>
           <GlassCard className="p-8 md:p-12 mb-8">
             <p className="text-text-high text-xl md:text-2xl mb-8 leading-relaxed">
               Have an AI project that needs to actually ship?{' '}

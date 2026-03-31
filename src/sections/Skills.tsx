@@ -12,13 +12,13 @@ export function Skills() {
 
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <SectionReveal>
+        <SectionReveal id="skills">
           <span className="text-xs font-mono text-text-low uppercase tracking-widest mb-4 block">
             Toolkit
           </span>
         </SectionReveal>
 
-        <SectionReveal delay={0.1}>
+        <SectionReveal id="skills" delay={0.1}>
           <h2 className="font-heading font-semibold text-3xl md:text-4xl lg:text-5xl text-text-high mb-12">
             What I <span className="gradient-text">Work With</span>
           </h2>
@@ -27,7 +27,7 @@ export function Skills() {
         {/* Bento Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
           {skillCategories.map((category, index) => (
-            <SectionReveal key={category.id} delay={0.2 + index * 0.1}>
+            <SectionReveal id="skills" key={category.id} delay={0.2 + index * 0.1}>
               <motion.div
                 className="glass-card rounded-xl p-6 h-full"
                 whileHover={{ y: -4 }}

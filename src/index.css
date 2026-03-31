@@ -277,10 +277,17 @@ body {
 }
 
 .car-impact {
-  animation: car-impact 0.4s ease-out;
   border-color: var(--accent-1) !important;
-  box-shadow: 0 0 30px var(--accent-glow) !important;
+  box-shadow: 0 0 40px var(--accent-glow) !important;
+  background: rgba(0, 212, 255, 0.05);
+  animation: car-pulse 2s infinite ease-in-out;
   z-index: 50;
+}
+
+@keyframes car-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 20px var(--accent-glow); }
+  50% { transform: scale(1.005); box-shadow: 0 0 60px var(--accent-glow); }
+  100% { transform: scale(1); box-shadow: 0 0 20px var(--accent-glow); }
 }
 
 .car-active-element {

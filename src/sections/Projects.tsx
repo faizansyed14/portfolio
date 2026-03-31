@@ -28,13 +28,13 @@ export function Projects() {
       <div className="max-w-7xl mx-auto px-4 md:px-0">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
           <div className="relative z-10">
-            <SectionReveal>
+            <SectionReveal id="projects">
               <span className="text-xs font-mono text-accent-1 uppercase tracking-widest mb-4 block">
                 Portfolio Showcase
               </span>
             </SectionReveal>
 
-            <SectionReveal delay={0.1}>
+            <SectionReveal id="projects" delay={0.1}>
               <h2 className="font-heading font-semibold text-3xl md:text-5xl lg:text-7xl text-text-high mb-6 leading-tight transition-colors">
                 Things I&apos;ve <br />
                 <span className="gradient-text italic font-bold">Shipped</span>

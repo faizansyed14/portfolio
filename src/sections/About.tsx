@@ -18,7 +18,7 @@ export function About() {
 
       <div className="max-w-7xl mx-auto">
         {/* Section Label */}
-        <SectionReveal>
+        <SectionReveal id="about">
           <span className="text-xs font-mono text-text-low uppercase tracking-widest mb-4 block">
             About
           </span>
@@ -27,7 +27,7 @@ export function About() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left - Narrative */}
           <div>
-            <SectionReveal delay={0.1}>
+            <SectionReveal id="about" delay={0.1}>
               <h2 className="font-heading font-semibold text-3xl md:text-4xl lg:text-5xl text-text-high mb-8">
                 Building AI That{' '}
                 <span className="gradient-text">Ships</span>
